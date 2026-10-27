@@ -28,6 +28,29 @@
 
 ---
 
+## 🎥 Video Walkthrough Demo
+
+Watch the full walkthrough demonstration featuring studio neural voice narration, responsive browser mockups, mood-to-genre compound queries, live debounced search, and interactive modal viewports.
+
+https://github.com/user-attachments/assets/0d9d0700-0d80-48a3-9ac8-208e7df18273
+
+<details>
+<summary><strong>Click to preview animated walkthrough GIF</strong></summary>
+<br />
+<div align="center">
+  <img src="demo/movie_mood_matcher_demo_preview.gif" alt="Movie Mood Matcher Walkthrough Demo Animated Preview" width="100%" style="border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
+</div>
+</details>
+
+> 🎬 **Walkthrough Chapters**:
+> 1. **Hero & Trending Feed**: Asynchronous TMDB REST client fetching trending and in-theater titles with fluid CSS Grid card layouts.
+> 2. **Mood-to-Genre Algorithmic Mapping**: Compound query builder mapping emotional states (*Chill*, *Sad*, *Scared*, *Funny*, *Intense*, *Romantic*) to TMDB genre IDs.
+> 3. **Live Search with Input Debouncing**: 400ms keystroke throttling eliminating redundant network requests and protecting API quotas.
+> 4. **Interactive Lightbox Modal**: High-resolution backdrop photography, detailed plot synopses, runtimes, genre badges, and audience voting scores.
+> 5. **LocalStorage Watchlist & Persistence**: Zero-server state persistence enabling users to save movies and filter by *Watched* vs *To Watch*.
+
+---
+
 ## 📌 Overview
 
 Instead of endlessly scrolling through streaming catalogues, **MovieMoodMatcher** helps viewers overcome decision fatigue by mapping emotional states directly to cinematic genres. Users select their vibe—such as *Chill*, *Sad*, *Scared*, *Funny*, *Intense*, or *Romantic*—and the platform asynchronously queries curated cinema titles with real-time ratings, release dates, and trailer playback.
@@ -93,6 +116,32 @@ To adhere to industry-standard credential security, this repository implements a
 - **Data Source**: The Movie Database (TMDB) RESTful API v3.
 - **Persistence**: Browser `localStorage` with automated JSON serialization/deserialization.
 - **Icons & Media**: FontAwesome 6, TMDB CDN (`image.tmdb.org`).
+
+---
+
+## 📁 Project Structure
+
+```
+movie-mood-matcher/
+├── assets/                          # Static branding, logo, and social assets
+│   ├── images/
+│   └── screenshots/                 # Application showcase UI captures
+├── css/
+│   └── app.css                      # Modern CSS Grid & custom properties stylesheet
+├── demo/                            # Full-length video walkthrough & media previews
+│   ├── movie_mood_matcher_demo_preview.gif   # Web-ready animated walkthrough GIF for GitHub
+│   └── movie_mood_matcher_walkthrough_demo.mp4 # Full 1080p HD walkthrough video with studio voiceover
+├── js/
+│   ├── Movie.js                     # Model entity representing movie objects
+│   └── app.js                       # Controller, TMDB API service, debouncing, & DOM logic
+├── netlify/                         # Serverless backend functions
+│   └── functions/
+│       └── tmdb.js                  # Encrypted TMDB API key proxy gateway
+├── index.html                       # Semantic HTML5 single-page application shell
+├── netlify.toml                     # Netlify build, redirects, and headers configuration
+├── LICENSE                          # MIT License documentation
+└── README.md                        # Documentation & architecture walkthrough
+```
 
 ---
 
