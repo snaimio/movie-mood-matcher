@@ -22,9 +22,10 @@ let currentFilter = 'all';      // Current watchlist filter (all/watched/unwatch
 let isSearching = false;        // Flag to prevent duplicate search requests
 let searchTimeout;              // Timer ID for search debouncing
 
-// TMDB API Configuration
-const API_KEY = '1601e91f3aa11e0a5430e5509c7541b9'; // My Own API key 
-const BASE_URL = 'https://api.themoviedb.org/3';    // TMDB API base endpoint
+// TMDB API Proxy Configuration (Security Best Practice)
+// The private TMDB API key is stored securely in Netlify Environment Variables
+// and injected server-side via the Netlify serverless function (/api/tmdb).
+const PROXY_URL = '/api/tmdb';
 
 // Display limits for performance
 const MAX_TRENDS = 8;           // Maximum trending movies to show
@@ -156,7 +157,7 @@ function setupEventListeners() {
 async function getNowPlaying() {
   try {
     showLoading('#now-playing-grid', 'Loading now playing movies...');
-    const url = `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`;
+    const url = `${PROXY_URL}?endpoint=movie/now_playing&language=en-US&page=1`;
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -181,7 +182,7 @@ async function getNowPlaying() {
 async function getTrending() {
   try {
     showLoading('#trending-grid', 'Loading trending movies...');
-    const url = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=en-US&page=1`;
+    const url = `${PROXY_URL}?endpoint=trending/movie/week&language=en-US&page=1`;
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -225,7 +226,7 @@ async function getMoviesByMood(mood) {
   
   try {
     // TMDB discover endpoint with genre filtering
-    const url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreIds}&sort_by=popularity.desc&vote_count.gte=100&page=1&include_adult=false`;
+    const url = `${PROXY_URL}?endpoint=discover/movie&with_genres=${genreIds}&sort_by=popularity.desc&vote_count.gte=100&page=1&include_adult=false`;
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -268,7 +269,7 @@ async function searchMovies() {
   showLoading('#results-grid', `Searching for "${query}"...`);
   
   try {
-    const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=1`;
+    const url = `${PROXY_URL}?endpoint=search/movie&query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=1`;
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -537,7 +538,7 @@ function createLightboxContent(movie, isInWatchlist, trailerKey) {
  */
 async function fetchTrailerAndUpdate(movieId) {
   try {
-    const videoUrl = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
+    const videoUrl = `${PROXY_URL}?endpoint=movie/${movieId}/videos`;
     const response = await fetch(videoUrl);
     const data = await response.json();
     

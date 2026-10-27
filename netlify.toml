@@ -1,0 +1,13 @@
+[build]
+  functions = "netlify/functions"
+
+# Proxy redirect: route clean /api/tmdb calls to the serverless function
+[[redirects]]
+  from = "/api/tmdb/*"
+  to = "/.netlify/functions/tmdb/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/tmdb"
+  to = "/.netlify/functions/tmdb"
+  status = 200
